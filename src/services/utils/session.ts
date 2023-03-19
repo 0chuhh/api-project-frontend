@@ -1,18 +1,18 @@
-import { ReactSession } from 'react-client-session';
-
+import Cookies from 'js-cookie';
 export function getSessionId():string {
-    ReactSession.setStoreType("cookie")
     let sessionId
-    try {
-        sessionId = ReactSession.get("sessionid")
+    sessionId = Cookies.get('sessionId')?.toString()
+    if(sessionId !== undefined){
         return sessionId
-    } catch (error) {
+    }else{
         setSessionId()
         sessionId = getSessionId()
         return sessionId
     }
+        
 }
 const setSessionId = () =>{
-    ReactSession.setStoreType("cookie");
-    ReactSession.set("sessionid", Date.now().toString());
+    var expires = new Date(Date.now());
+    expires.setDate(expires.getDate() + 4);
+    Cookies.set('sessionId', Date.now().toString(), {expires: expires, sameSite:'Lax', domain:'localhost'})
 }
