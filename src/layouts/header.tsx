@@ -1,5 +1,5 @@
-import logo from '../../assets/logo.svg'
-import cart from '../../assets/cart-icon.svg'
+import logo from '../assets/logo.svg'
+import cart from '../assets/cart-icon.svg'
 import { Link, Outlet } from "react-router-dom";
 const Header = () => {
     return (
