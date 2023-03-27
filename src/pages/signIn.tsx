@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import api from '../services/api'
 import { IsAuthentificted } from "../services/utils/isAuthentificated";
+import { loginUser } from "../store/reducers/ActionCreators";
+import { useAppDispatch } from "../hooks/redux";
 const SignIn = () =>{
     const [login, setLogin] = useState('user1')
     const [password, setPassword] = useState('HelloWorld123')
+    const dispatch = useAppDispatch()
     useEffect(()=>{
         console.log(IsAuthentificted())
     },[])
 
-    const auth = async () =>{
-        await api.auth.getAuthToken(login, password)
+    const auth = () =>{
+        dispatch(loginUser(login, password))
     }
 
     return(

@@ -6,32 +6,23 @@ import { IsAuthentificted } from '../services/utils/isAuthentificated';
 import { CookieChangeListener } from '../services/utils/cookieChangeListener';
 import { Logout } from '../services/utils/logout';
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
+import { getMe } from '../store/reducers/ActionCreators';
 
 const Header = () => {
     const [authentificated, setAuthentificated] = useState(false)
-    const [user, setUser] = useState('')
     const navigate = useNavigate();
-
-    useLayoutEffect(() => {
-        setAuthentificated(IsAuthentificted())
-
-    }, [])
-    useEffect(() => {
-        CookieChangeListener(() => {
-            setAuthentificated(IsAuthentificted())
-        }, 1000)
-    }, [])
-
-    useEffect(() => {
-        if (authentificated) {
-            setUser('user')
-        } else {
-            setUser('')
-        }
-    }, [authentificated])
+    const {user} = useAppSelector(state=>state.userReducer)
+    
+    const dispatch = useAppDispatch()
+    
+    useEffect(()=>{
+        dispatch(getMe())
+    },[])
 
     const onLogoutClick = () =>{
-        Logout()
+        
+        dispatch(Logout())
         navigate('/')
     }
     return (
@@ -80,9 +71,9 @@ const Header = () => {
                     </div>
 
                     {
-                        user != '' ?
+                        user != null?
                             <>
-                                <div>{user}</div>
+                                <div>{user.username}</div>
                                 <div className="divider" style={{ height: '20px', width: '1px', background: '#e5e5e5', marginLeft: '23px', marginTop: '5px', marginRight: '23px' }}>
                                 </div>
                                 <div style={{cursor:'pointer'}} onClick={onLogoutClick}>Выйти</div>
