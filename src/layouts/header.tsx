@@ -7,25 +7,34 @@ import { CookieChangeListener } from '../services/utils/cookieChangeListener';
 import { Logout } from '../services/utils/logout';
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { getMe } from '../store/reducers/User/ActionAuth';
-import { fetchCategories } from '../store/reducers/Category/ActionCategory';
+import { getMe } from '../store/reducers/user/ActionAuth';
+import { fetchCategories } from '../store/reducers/category/ActionCategory';
+import { PopUp } from 'components/UI/pop-up/popUp';
+import { CartPopUp } from 'components/modules/cartPopUp';
+import { ClickAwayListener } from '@mui/base';
 
 const Header = () => {
-    const [authentificated, setAuthentificated] = useState(false)
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
     const navigate = useNavigate();
-    const {user} = useAppSelector(state=>state.userReducer)
-    
+    const { user } = useAppSelector(state => state.userReducer)
+
     const dispatch = useAppDispatch()
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         dispatch(getMe())
         dispatch(fetchCategories())
-    },[])
+    }, [])
 
-    const onLogoutClick = () =>{
+    const onLogoutClick = () => {
         dispatch(Logout())
         navigate('/')
     }
+
+    const openCart = (e: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(anchorEl ? null : e.currentTarget)
+    }
+
+    
     return (
         <div>
             <div style={{ background: '#fff', width: '100%', height: '130px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', boxShadow: '0 1px 5px 0px rgba(0,0,0,0.2)' }}>
@@ -65,19 +74,22 @@ const Header = () => {
                     <div className="divider" style={{ height: '20px', width: '1px', background: '#e5e5e5', marginLeft: '23px', marginTop: '5px', marginRight: '23px' }}>
                     </div>
 
-                    <div className="cart" >
+                    <div style={{ cursor: 'pointer' }} onClick={openCart} className="cart" >
                         <img src={cart} alt="" style={{ maxHeight: '50px' }} />
                     </div>
+s                    <PopUp anchorEl={anchorEl} setAnchorEl={setAnchorEl}>
+                        <CartPopUp />
+                    </PopUp>
                     <div className="divider" style={{ height: '20px', width: '1px', background: '#e5e5e5', marginLeft: '23px', marginTop: '5px', marginRight: '23px' }}>
                     </div>
 
                     {
-                        user != null?
+                        user != null ?
                             <>
                                 <div>{user.username}</div>
                                 <div className="divider" style={{ height: '20px', width: '1px', background: '#e5e5e5', marginLeft: '23px', marginTop: '5px', marginRight: '23px' }}>
                                 </div>
-                                <div style={{cursor:'pointer'}} onClick={onLogoutClick}>Выйти</div>
+                                <div style={{ cursor: 'pointer' }} onClick={onLogoutClick}>Выйти</div>
                             </>
                             : <>
                                 <div className="reg">
