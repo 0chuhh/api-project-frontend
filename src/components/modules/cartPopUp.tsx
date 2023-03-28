@@ -1,11 +1,15 @@
-import { useAppDispatch, useAppSelector } from "hooks/redux";
-import React from "react";
+import { useAppDispatch } from "hooks/redux";
+import React, {FC} from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import { IProduct } from "models/IProduct";
 import { cartSlice } from "store/reducers/cart/CartSlice";
 
-export const CartPopUp = () => {
-    const { products, totalSum } = useAppSelector(state => state.cartReducer)
+interface CartPopUpProps {
+    products: IProduct[]
+    totalSum: number
+}
+
+export const CartPopUp:FC<CartPopUpProps> = ({products, totalSum}) => {
 
     const dispatch = useAppDispatch()
 
@@ -17,7 +21,7 @@ export const CartPopUp = () => {
     return (
         <div className="cart-pop-up" >
             <div className="cart-products">
-                {
+                {products.length>0?
                     products.map((item, index) =>
                         <div key={'cart-item ' + index} className="cart-item">
                             <div className="cart-item-image" style={{ backgroundImage: `url(${item.image})` }} />
@@ -29,6 +33,7 @@ export const CartPopUp = () => {
 
                         </div>
                     )
+                    : <div style={{textAlign:'center', margin:'50px 0 50px 0'}}>В корзине пока ничего нет.</div>
                 }
             </div>
             <div className="cart-total-price">

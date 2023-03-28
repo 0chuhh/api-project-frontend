@@ -5,6 +5,7 @@ import Menu from "../pages/menu";
 import SignUp from "../pages/signUp";
 import SignIn from "../pages/signIn";
 import AuthRoute from "./authRoute";
+import Cart from "pages/Cart";
 
 const AppRoutes = () => {
 
@@ -17,6 +18,7 @@ const AppRoutes = () => {
                 <Route path="/menu/" element={<Menu/>}>
                     <Route index path="/menu/:categoryId" element={<Menu/>}/>
                 </Route>
+                <Route path="/cart" element={<Cart/>}/>
                 <Route path="sign-up" element={<AuthRoute><SignUp/></AuthRoute>}></Route>
                 <Route path="sign-in" element={<AuthRoute><SignIn/></AuthRoute>}/>
                 <Route path="*" element={<div>404 not found</div>}/>

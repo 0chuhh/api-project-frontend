@@ -1,7 +1,7 @@
-import { AppDispatch } from "../..";
-import { IUser } from "../../../models/IUser";
-import api from '../../../services/api'
-import { IsAuthentificted } from "../../../services/utils/isAuthentificated";
+import { AppDispatch } from "store";
+import { IUser } from "models/IUser";
+import api from 'services/api'
+import { IsAuthentificted } from "services/utils/isAuthentificated";
 import { userSlice } from "./UserSlice";
 export const loginUser = (username:string, password:string) => async (dispatch: AppDispatch) => {
     try {

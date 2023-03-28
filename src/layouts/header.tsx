@@ -12,8 +12,12 @@ import { fetchCategories } from '../store/reducers/category/ActionCategory';
 import { PopUp } from 'components/UI/pop-up/popUp';
 import { CartPopUp } from 'components/modules/cartPopUp';
 import { ClickAwayListener } from '@mui/base';
+import { Badge } from '@mui/material';
 
 const Header = () => {
+
+    const { products, totalSum, productsCount } = useAppSelector(state => state.cartReducer)
+    
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
     const navigate = useNavigate();
     const { user } = useAppSelector(state => state.userReducer)
@@ -74,19 +78,21 @@ const Header = () => {
                     <div className="divider" style={{ height: '20px', width: '1px', background: '#e5e5e5', marginLeft: '23px', marginTop: '5px', marginRight: '23px' }}>
                     </div>
 
-                    <div style={{ cursor: 'pointer' }} onClick={openCart} className="cart" >
-                        <img src={cart} alt="" style={{ maxHeight: '50px' }} />
-                    </div>
-s                    <PopUp anchorEl={anchorEl} setAnchorEl={setAnchorEl}>
-                        <CartPopUp />
+                    <Badge badgeContent={productsCount} color='primary'>
+                        <div style={{ cursor: 'pointer' }} onClick={openCart} className="cart" >
+                            <img src={cart} alt="" style={{ maxHeight: '50px' }} />
+                        </div>
+                    </Badge>
+                    <PopUp anchorEl={anchorEl} setAnchorEl={setAnchorEl}>
+                        <CartPopUp products={products} totalSum={totalSum}/>
                     </PopUp>
                     <div className="divider" style={{ height: '20px', width: '1px', background: '#e5e5e5', marginLeft: '23px', marginTop: '5px', marginRight: '23px' }}>
                     </div>
 
                     {
-                        user != null ?
+                        IsAuthentificted() ?
                             <>
-                                <div>{user.username}</div>
+                                <div>{user?.username}</div>
                                 <div className="divider" style={{ height: '20px', width: '1px', background: '#e5e5e5', marginLeft: '23px', marginTop: '5px', marginRight: '23px' }}>
                                 </div>
                                 <div style={{ cursor: 'pointer' }} onClick={onLogoutClick}>Выйти</div>

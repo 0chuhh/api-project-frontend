@@ -9,16 +9,20 @@
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
 .prev {
   left: 0;
 }
+
 .next {
   right: 0;
 }
+
 .prev:hover,
 .next:hover {
   background: rgba(200, 10, 100, 1);
 }
+
 .card-list {
   display: flex;
   width: 90%;
@@ -26,6 +30,7 @@
   justify-content: space-between;
   margin: 20px 0 0 30px;
 }
+
 .card {
   max-width: 269px;
   padding: 10px;
@@ -61,19 +66,21 @@
   background: red;
 }
 
-.cart-pop-up{
+.cart-pop-up {
   background-color: #fff;
   width: 500px;
   border: solid black 1px;
   max-height: 700px;
+  height: 100%;
 }
 
-.cart-products{
+.cart-products {
   max-height: 400px;
+  height: 100%;
   overflow-y: auto;
 }
 
-.cart-total-price{
+.cart-total-price {
   border-top: solid black 1px;
   display: flex;
   flex-direction: column;
@@ -81,7 +88,7 @@
   justify-content: space-between;
 }
 
-.cart-item{
+.cart-item {
   display: flex;
   justify-content: start;
   gap: 10px;
@@ -89,7 +96,7 @@
   margin: 10px;
 }
 
-.cart-item-image{
+.cart-item-image {
   width: 80px;
   height: 80px;
   background-size: cover;
@@ -97,6 +104,83 @@
   margin: 5px;
 }
 
-.cart-item-remove{
+.cart-item-remove {
   margin-left: auto;
+  cursor: pointer;
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 100%;
+  height: 80vh;
+}
+
+.sign-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 500px;
+  width: 100%;
+  padding: 20px;
+  border: solid black 1px;
+  border-radius: 10px;
+}
+
+.input {
+  height: 30px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.input:focus {
+  background-color: #000;
+  color: #fff;
+}
+
+.cart-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 992px;
+}
+
+.table-head {
+  font-size: 13px;
+  color: #555555;
+  line-height: 1.5;
+  text-transform: uppercase;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  font-weight: bold;
+}
+
+.column-1 {
+  width: 225px;
+  padding-left: 50px;
+}
+
+.column-2 {
+  width: 330px;
+  padding-right: 30px;
+}
+
+.column-3 {
+  width: 133px;
+  padding-right: 30px;
+}
+
+.column-4 {
+  width: 355px;
+  padding-right: 125px;
+}
+
+.column-5 {
+  padding-right: 30px;
+}
+
+.cart-table-row {
+  border-top: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
 }

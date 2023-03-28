@@ -11,7 +11,7 @@ const SignUp = () =>{
     }
     return(
         <div className="container">
-            <div className="card">
+            <div className="sign-form">
                 <div className="title">Регистрация</div>
                 <input className="input" value={email} onChange={(e)=>setEmail(e.target.value)} type='email' placeholder="email"/>
                 <input className="input" value={login} onChange={(e)=>setLogin(e.target.value)} type='text' placeholder="login"/>
