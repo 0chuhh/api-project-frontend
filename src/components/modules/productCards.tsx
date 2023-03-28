@@ -1,22 +1,18 @@
 import { useEffect, FC, useState } from "react"
 import api from "../../services/api"
-import { Product } from "../../types/product"
+import { IProduct } from "../../models/IProduct"
 import Card from "../UI/card/card"
+import { useAppDispatch, useAppSelector } from "hooks/redux"
+import { fetchProducts } from "store/reducers/Product/ActionProduct"
 interface ProductCardsProps{
-    categoryId:number
+    categoryId?:string | undefined
 }
 const ProductCards:FC<ProductCardsProps> = ({categoryId}) =>{
-    const [products, setProducts] = useState<Product[]>([])
-
-    const getProducts = async (id?: number) => {
-        console.log(id)
-        let result
-        return Number.isNaN(id) ? await api.products.getProducts().then(res => res.data)
-            : await api.products.getProducts(id).then(res => res.data)
-    }
+    const {products} = useAppSelector(state=>state.productReducer)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
-        getProducts(categoryId).then(e => setProducts(e))
+        dispatch(fetchProducts(categoryId))
     }, [categoryId])
     return(
         <div style={{display:'flex', flexWrap:'wrap', justifyContent:'space-between', margin:'20px 0 0 30px'}}>

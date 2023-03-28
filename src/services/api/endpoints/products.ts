@@ -1,3 +1,4 @@
+import { IProduct } from "models/IProduct";
 import axios from "../axios";
 
 const config = {
@@ -9,7 +10,7 @@ const config = {
 };
 
 const endpoints = {
-    getProducts: (category?: number) => axios.get(`products/`, {
+    getProducts: (category?: string) => axios.get<IProduct[]>(`products/`, {
         params:{
             category
         }

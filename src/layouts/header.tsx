@@ -7,7 +7,8 @@ import { CookieChangeListener } from '../services/utils/cookieChangeListener';
 import { Logout } from '../services/utils/logout';
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { getMe } from '../store/reducers/ActionCreators';
+import { getMe } from '../store/reducers/User/ActionAuth';
+import { fetchCategories } from '../store/reducers/Category/ActionCategory';
 
 const Header = () => {
     const [authentificated, setAuthentificated] = useState(false)
@@ -18,10 +19,10 @@ const Header = () => {
     
     useEffect(()=>{
         dispatch(getMe())
+        dispatch(fetchCategories())
     },[])
 
     const onLogoutClick = () =>{
-        
         dispatch(Logout())
         navigate('/')
     }

@@ -1,3 +1,4 @@
+import { ICategory } from "../../../models/ICategory";
 import axios from "../axios";
 
 const config = {
@@ -9,7 +10,7 @@ const config = {
 };
 
 const endpoints = {
-    getCategories: () => axios.get('products/categories/')
+    getCategories: () => axios.get<ICategory[]>('products/categories/')
 };
 
 export default endpoints;

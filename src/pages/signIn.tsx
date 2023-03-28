@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from '../services/api'
 import { IsAuthentificted } from "../services/utils/isAuthentificated";
-import { loginUser } from "../store/reducers/ActionCreators";
+import { loginUser } from "../store/reducers/User/ActionAuth";
 import { useAppDispatch } from "../hooks/redux";
 const SignIn = () =>{
     const [login, setLogin] = useState('user1')

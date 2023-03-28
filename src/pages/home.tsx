@@ -5,18 +5,10 @@ import secondSlide from '../assets/slide-2.jpg'
 import thirdSlide from '../assets/slide-3.jpg'
 import Slider from "../components/UI/slider"
 import { getSessionId } from "../services/utils/session"
+import { useAppSelector } from "../hooks/redux"
 
 const HomePage = () => {
-    const [categories, setCategories] = useState<any[]>([])
-    const getCategories = async ()  =>{
-        let result
-        return await api.categories.getCategories().then(res=>res.data)
-    }
-    
-    useEffect( ()=>{
-        getSessionId()
-        getCategories().then(e=>setCategories(e))
-    },[])
+    const {categories} = useAppSelector(state=>state.categoryReducer)
     return(
         <div>
             <Slider items={[firstSlide,secondSlide,thirdSlide]}/>

@@ -1,9 +1,9 @@
 import React,{FC} from "react"
 import { Link } from "react-router-dom";
-import { Category } from "../../../types/category";
+import { ICategory } from "../../../models/ICategory";
 
 interface CategoriesProps{
-    items: Array<Category>
+    items: ICategory[]
 }
 const Categories:FC<CategoriesProps> = ({items}) =>{
     return(
