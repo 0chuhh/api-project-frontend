@@ -12,7 +12,7 @@ const HomePage = () => {
     return(
         <div>
             <Slider items={[firstSlide,secondSlide,thirdSlide]}/>
-            <div style={{display:'flex', flexWrap:'wrap', justifyContent:'center', padding:'0 10% 0 10%'}}>
+            <div className="container" style={{display:'flex', flexWrap:'wrap', justifyContent:'center', }}>
             {
                 categories.map((category, index)=>
                         <div key={`category ${index}`} style={{position:'relative', display:'flex', justifyContent:'center'}}>

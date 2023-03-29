@@ -19,8 +19,9 @@ const Card: FC<CardProps> = ({ image, title, content, price , onClick}) => {
         setIsHoverBack(false)
     }
     return (
-        <div  className="card">
-            <div onMouseEnter={mouseEnterBack} onMouseLeave={mouseLeaveBack} style={{ background: `url(${image})` }} className="card-image">
+  
+        <div onMouseEnter={mouseEnterBack} onMouseLeave={mouseLeaveBack} className="card" style={{border: '1px solid #e6e6e6', position:'relative', overflow:'hidden'}}>
+            <div  style={{ backgroundImage: `url(${image})`, }} className="card-image">
                 <div onClick={onClick} className="button"
                     style={{
                         position: "absolute",
@@ -30,9 +31,11 @@ const Card: FC<CardProps> = ({ image, title, content, price , onClick}) => {
                     в корзину
                 </div>
             </div>
-            <h4 className="title">{title}</h4>
-            <div className="content">{content}</div>
-            <div className="price">₽{price}</div>
+            <div>
+                <h4 className="title">{title}</h4>
+                <div className="content">{content}</div>
+                <div className="price">₽{price}</div>
+            </div>
         </div>
     )
 }

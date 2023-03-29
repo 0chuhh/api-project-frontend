@@ -8,7 +8,7 @@ const Menu = () => {
     const {categories} = useAppSelector(state=>state.categoryReducer)
         
     return (
-        <div style={{display:'flex', padding:'0 20%  0 20% '}}>
+        <div className="container" style={{display:'flex'}}>
             <Categories items={categories}/>
             <ProductCards categoryId={categoryId}/>
         </div>

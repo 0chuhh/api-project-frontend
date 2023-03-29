@@ -10,7 +10,7 @@ const SignUp = () =>{
         await api.auth.signUp(email,login, password)
     }
     return(
-        <div className="container">
+        <div className="container" style={{display:'flex', justifyContent:'center', padding:'20%'}}>
             <div className="sign-form">
                 <div className="title">Регистрация</div>
                 <input className="input" value={email} onChange={(e)=>setEmail(e.target.value)} type='email' placeholder="email"/>

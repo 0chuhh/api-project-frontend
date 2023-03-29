@@ -5,7 +5,7 @@ import Menu from "../pages/menu";
 import SignUp from "../pages/signUp";
 import SignIn from "../pages/signIn";
 import AuthRoute from "./authRoute";
-import Cart from "pages/Cart";
+import Cart from "pages/cart";
 
 const AppRoutes = () => {
 

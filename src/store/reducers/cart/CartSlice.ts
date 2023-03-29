@@ -45,7 +45,26 @@ export const cartSlice = createSlice({
                     return acc
                 }, [])
             }
-            
+
+            localStorage.setItem('cart', JSON.stringify(state))
+        },
+        cartSubstruct(state, action: PayloadAction<IProduct>) {
+            let currentItem = state.products.find(element => element.id == action.payload.id)
+            if (currentItem) {
+                if (currentItem.count !== 1) {
+                    state.totalSum -= action.payload.price
+                    state.productsCount -= 1
+                    currentItem.count -= 1
+                } else {
+                    state.totalSum -= action.payload.price * currentItem.count
+                    state.productsCount -= currentItem.count
+                    state.products = state.products.reduce((acc: IProduct[], element: IProduct) => {
+                        if (element.id !== action.payload.id) acc.push(element);
+                        return acc
+                    }, [])
+                }
+            }
+
             localStorage.setItem('cart', JSON.stringify(state))
         }
     }
