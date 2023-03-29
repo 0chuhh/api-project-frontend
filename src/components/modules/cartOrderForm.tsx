@@ -2,21 +2,26 @@ import { useAppSelector } from "hooks/redux"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { IsAuthentificted } from "services/utils/isAuthentificated"
-
+import api from 'services/api'
 const CartOrderFrom = () =>{
     const [isAuthentificted, setIsAuthentificted] = useState<boolean>(IsAuthentificted())
     const [paymentMethod, setpaymentMethod] = useState<number>()
     const [deliveryMethod, setDeliveryMethod] = useState<number>()
+    const [phone, setPhone] = useState<string>()
 
     const { user } = useAppSelector(state => state.userReducer)
-    const { totalSum } = useAppSelector(state => state.cartReducer)
+    const { totalSum, products } = useAppSelector(state => state.cartReducer)
 
 
     useEffect(()=>{
         setIsAuthentificted(IsAuthentificted())
     }, [user])
 
-
+    const createOrder = () =>{
+        if(deliveryMethod && paymentMethod && phone){
+            api.orders.createOrder(deliveryMethod, paymentMethod, phone, totalSum, products)
+        }
+    }
     
     return(
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '500px', position: 'relative' }}>
@@ -42,11 +47,11 @@ const CartOrderFrom = () =>{
                         </select>
                     </div>
                     <div className="number">
-                        <input className='input' placeholder='Номер телефона' />
+                        <input value={phone} onChange={(e)=>setPhone(e.target.value)} className='input' placeholder='Номер телефона' />
                     </div>
                     {
                         isAuthentificted ?
-                            <div className="button">Оформить</div>
+                            <div onClick={createOrder} className="button">Оформить</div>
                             :
                             <div>
                                 <div style={{marginBottom:'10px', fontSize:'14px'}}>Для оформления заказа, пожалуйста, авторизуйтесь</div>
