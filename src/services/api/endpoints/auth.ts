@@ -32,11 +32,7 @@ const endpoints = {
         return result
     },
     getMe: function() {
-        const result = axios.get<IUser>('auth-token/me/',{
-            headers:{
-                "Authorization": Cookies.get('token') 
-            }
-        } ).then(result=>{
+        const result = axios.get<IUser>('auth-token/me/').then(result=>{
             return {
                 id: result.data.id,
                 email: result.data?.email,

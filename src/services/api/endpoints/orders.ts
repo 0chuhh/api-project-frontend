@@ -2,6 +2,7 @@ import { IProduct } from "models/IProduct";
 import { IUser } from "../../../models/IUser";
 import axios from "../axios";
 import Cookies from 'js-cookie';
+import { IOrder } from "models/IOrder";
 const headers = {
 
     'Content-Type': 'application/json;charset=utf-8',
@@ -22,7 +23,9 @@ const endpoints = {
             "Authorization": Cookies.get('token')
         },
 
-    })
+    }),
+    getMyOrders: ()=>axios.get<IOrder[]>('orders/my_orders/')
+    
 
 };
 

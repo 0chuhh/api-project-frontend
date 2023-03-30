@@ -8,6 +8,13 @@ import { getSessionId } from "../services/utils/session"
 import { useAppSelector } from "../hooks/redux"
 
 const HomePage = () => {
+    const get = async () =>{
+        await api.orders.getMyOrders()
+
+    }
+    useEffect(()=>{
+        get()
+    },[])
     const {categories} = useAppSelector(state=>state.categoryReducer)
     return(
         <div>
