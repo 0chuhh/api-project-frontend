@@ -13,6 +13,7 @@ import { PopUp } from 'components/UI/pop-up/popUp';
 import { CartPopUp } from 'components/modules/cartPopUp';
 import { ClickAwayListener } from '@mui/base';
 import { Badge } from '@mui/material';
+import { fetchOrders } from 'store/reducers/order/ActionOrder';
 
 const Header = () => {
 
@@ -26,8 +27,16 @@ const Header = () => {
 
     useEffect(() => {
         dispatch(getMe())
-        dispatch(fetchCategories())
+
+        dispatch(fetchCategories())       
     }, [])
+
+    useEffect(()=>{
+        if(IsAuthentificted()) {
+            dispatch(fetchOrders())
+        }
+
+    }, [user])
 
     const onLogoutClick = () => {
         dispatch(Logout())
