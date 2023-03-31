@@ -31,12 +31,7 @@ const Header = () => {
         dispatch(fetchCategories())       
     }, [])
 
-    useEffect(()=>{
-        if(IsAuthentificted()) {
-            dispatch(fetchOrders())
-        }
-
-    }, [user])
+    
 
     const onLogoutClick = () => {
         dispatch(Logout())
@@ -81,6 +76,8 @@ const Header = () => {
                             О нас
                         </Link>
                     </div>
+                    
+                    
                 </div>
 
                 <div className='cart-icons' style={{ display: 'flex', alignItems: 'center', paddingRight: '20px' }}>
@@ -101,7 +98,11 @@ const Header = () => {
                     {
                         IsAuthentificted() ?
                             <>
-                                <div>{user?.username}</div>
+                                <div>
+                                    <Link to='/profile' style={{ textDecoration: 'none', color: '#000' }}>
+                                        {user?.username}
+                                    </Link>
+                                </div>
                                 <div className="divider" style={{ height: '20px', width: '1px', background: '#e5e5e5', marginLeft: '23px', marginTop: '5px', marginRight: '23px' }}>
                                 </div>
                                 <div style={{ cursor: 'pointer' }} onClick={onLogoutClick}>Выйти</div>

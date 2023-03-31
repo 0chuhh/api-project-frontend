@@ -1,11 +1,23 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { IsAuthentificted } from "services/utils/isAuthentificated";
 
 const axiosInstance = axios.create({
     baseURL: "http://127.0.0.1:8081/api/v1/",
-    headers:{
-        "Authorization": Cookies.get('token') && `Token ${Cookies.get('token')}`
-    }
 });
+
+axiosInstance.interceptors.request.use(
+    (config) => {
+      const authToken = Cookies.get("token");
+  
+      if (authToken) {
+        config.headers.authorization = `Token ${authToken}`;
+      }
+  
+      return config;
+    },
+    (error) => Promise.reject(error)
+  );
+  
 
 export default axiosInstance;

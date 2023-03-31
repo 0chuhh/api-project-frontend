@@ -3,6 +3,7 @@ import React, {FC} from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import { IProduct } from "models/IProduct";
 import { cartSlice } from "store/reducers/cart/CartSlice";
+import { Link } from "react-router-dom";
 
 interface CartPopUpProps {
     products: IProduct[]
@@ -14,7 +15,6 @@ export const CartPopUp:FC<CartPopUpProps> = ({products, totalSum}) => {
     const dispatch = useAppDispatch()
 
     const removeItem = (item:IProduct)=>{
-        console.log('hui')
         dispatch(cartSlice.actions.cartRemoveItem(item))
     }
 
@@ -38,7 +38,7 @@ export const CartPopUp:FC<CartPopUpProps> = ({products, totalSum}) => {
             </div>
             <div className="cart-total-price">
                 <div className="price">Сумма: ₽{totalSum}</div>
-                <div className="button">К корзине</div>
+                <Link to='/cart'><div className="button">К корзине</div></Link>
             </div>
             <div className="to-cart-button"></div>
         </div>

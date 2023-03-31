@@ -3,11 +3,13 @@ import userReducer from './reducers/user/UserSlice'
 import categoryReducer from './reducers/category/CategorySlice'
 import productReducer from './reducers/product/ProductSlice'
 import cartReducer from './reducers/cart/CartSlice'
+import ordersSlice from './reducers/order/OrderSlice'
 const rootReducer = combineReducers({
     userReducer,
     categoryReducer,
     productReducer,
-    cartReducer
+    cartReducer,
+    ordersSlice
 })
 
 export const setupStore = () => {
