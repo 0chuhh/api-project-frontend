@@ -28,6 +28,10 @@ export const categorySlice = createSlice({
         categoriesFetchingError(state, action: PayloadAction<string>){
             state.isLoading = false;
             state.error = action.payload
+        },
+        addCategoryFetchingSuccess(state, action: PayloadAction<ICategory>){
+            state.isLoading = false;
+            state.categories.push(action.payload)
         }
     }
 })

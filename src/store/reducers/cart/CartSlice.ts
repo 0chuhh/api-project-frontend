@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IProduct } from "models/IProduct";
-import { element } from "prop-types";
+
 
 
 interface CartState {
@@ -24,9 +24,9 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         cartAddItem(state, action: PayloadAction<IProduct>) {
-            let currentItem = state.products.find(element => element.id == action.payload.id)
+            let currentItem = state.products.find(element => element.id === action.payload.id)
             if (currentItem) {
-                state.products = state.products.map(element => (element.id == action.payload.id ? { ...element, count: element.count + 1 } : element))
+                state.products = state.products.map(element => (element.id === action.payload.id ? { ...element, count: element.count + 1 } : element))
                 state.totalSum += action.payload.price
             } else {
                 state.products.push(action.payload)
@@ -36,7 +36,7 @@ export const cartSlice = createSlice({
             localStorage.setItem('cart', JSON.stringify(state))
         },
         cartRemoveItem(state, action: PayloadAction<IProduct>) {
-            let currentItem = state.products.find(element => element.id == action.payload.id)
+            let currentItem = state.products.find(element => element.id === action.payload.id)
             if (currentItem) {
                 state.totalSum -= action.payload.price * currentItem.count
                 state.productsCount -= currentItem.count
@@ -49,7 +49,7 @@ export const cartSlice = createSlice({
             localStorage.setItem('cart', JSON.stringify(state))
         },
         cartSubstruct(state, action: PayloadAction<IProduct>) {
-            let currentItem = state.products.find(element => element.id == action.payload.id)
+            let currentItem = state.products.find(element => element.id === action.payload.id)
             if (currentItem) {
                 if (currentItem.count !== 1) {
                     state.totalSum -= action.payload.price

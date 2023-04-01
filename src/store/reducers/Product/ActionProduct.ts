@@ -12,3 +12,13 @@ export const fetchProducts = (category?:string) => async (dispatch: AppDispatch)
         dispatch(productsSlice.actions.productsFetchingError((error as Error).message))
     }
 }
+
+export const postProducts = (name:string, description:string, category:number, price:string, image?:File) => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(productsSlice.actions.productsFetching())
+        const {data:product} = await api.products.postProduct(name, description, category,price, image)
+        dispatch(productsSlice.actions.addProductFetchingSucces(product))
+    } catch (error) {
+        dispatch(productsSlice.actions.productsFetchingError((error as Error).message))
+    }
+}

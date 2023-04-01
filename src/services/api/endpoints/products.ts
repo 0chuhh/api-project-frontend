@@ -1,13 +1,7 @@
 import { IProduct } from "models/IProduct";
 import axios from "../axios";
 
-const config = {
-    headers: {
 
-        'Content-Type': 'application/json;charset=utf-8',
-        'Accept': '/*/'
-    },
-};
 
 const endpoints = {
     getProducts: function(category?: string){
@@ -32,7 +26,20 @@ const endpoints = {
     
         })
         return result
+    },
+    postProduct: (name:string, description:string, category:number, price:string, image?:File) => axios.post<IProduct>('products/',{
+        name,
+        description,
+        price,
+        category,
+        image
+    },
+    {
+        headers:{
+            'Content-Type': 'multipart/form-data'
+        }
     }
+    )
 };
 
 export default endpoints;

@@ -27,6 +27,10 @@ export const productsSlice = createSlice({
         productsFetchingError(state, action: PayloadAction<string>){
             state.isLoading = false;
             state.error = action.payload
+        },
+        addProductFetchingSucces(state, action: PayloadAction<IProduct>){
+            state.isLoading = false;
+            state.products.push(action.payload)
         }
     }
 })

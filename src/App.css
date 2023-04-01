@@ -141,6 +141,16 @@ input {
   height: 30px;
   border-radius: 5px;
   transition: all 0.3s ease;
+  max-height: 100px;
+}
+textarea{
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+  height: 100%;
+  transition: all 0.3s ease;
+  max-height: 100px;
+  resize: none;
 }
 
 select{
@@ -149,9 +159,10 @@ select{
   height: 30px;
   border-radius: 5px;
   transition: all 0.3s ease;
+
 }
 
-input:focus {
+input:focus, textarea:focus {
   background-color: #000;
   color: #fff;
 }

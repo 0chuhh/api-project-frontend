@@ -14,9 +14,9 @@ const defaultProps: MyAccordionProps = {
     expanded:false,
 }
 
-const MyAccordion:FC<MyAccordionProps> = ({title='', disabled=false, handleChange, expanded=false, children}) =>{
+const MyAccordion:FC<MyAccordionProps> = ({title, disabled, handleChange, expanded, children}) =>{
     return(
-        <Accordion expanded={expanded === `panel${title}`} onChange={()=>handleChange&&(`panel${title}`)}  disabled={disabled}>
+        <Accordion expanded={expanded === `panel${title}`} onChange={handleChange&& handleChange(`panel${title}`)}  disabled={disabled}>
             <AccordionSummary>
                 <Typography>{title}</Typography>
             </AccordionSummary>
@@ -25,6 +25,9 @@ const MyAccordion:FC<MyAccordionProps> = ({title='', disabled=false, handleChang
             </AccordionDetails>
         </Accordion>
     )
+    
 }
-
+MyAccordion.defaultProps = defaultProps
 export default MyAccordion
+
+

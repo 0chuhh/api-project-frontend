@@ -1,11 +1,6 @@
 import { IUser } from "../../../models/IUser";
 import axios from "../axios";
 import Cookies from 'js-cookie';
-const headers = {
-
-    'Content-Type': 'application/json;charset=utf-8',
-    'Accept': '/*/'
-}
 
 
 const endpoints = {
@@ -23,21 +18,21 @@ const endpoints = {
         }, ).then(result=>{
             Cookies.set('token', result.data.token)
             return {
-                id: result.data.id,
                 email: result.data?.email,
                 username: result.data?.username,
-                token: result.data?.token
+                token: result.data?.token,
+                roles: result.data?.roles
             }
         })
         return result
     },
     getMe: function() {
         const result = axios.get<IUser>('auth-token/me/').then(result=>{
-            return {
-                id: result.data.id,
+            return { 
                 email: result.data?.email,
                 username: result.data?.username,
-                token: result.data?.token
+                token: result.data?.token,
+                roles: result.data?.roles
             }
         })
         return result

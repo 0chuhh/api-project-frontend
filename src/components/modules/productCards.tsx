@@ -6,13 +6,14 @@ import { useAppDispatch, useAppSelector } from "hooks/redux"
 import { fetchProducts } from "store/reducers/product/ActionProduct"
 import { cartSlice } from "store/reducers/cart/CartSlice"
 import { Alert, Snackbar } from "@mui/material"
+import ManagerMenuProducts from "./managerMenuProducts"
 interface ProductCardsProps{
     categoryId?:string | undefined
 }
 const ProductCards:FC<ProductCardsProps> = ({categoryId}) =>{
     const {products} = useAppSelector(state=>state.productReducer)
     const dispatch = useAppDispatch()
-
+    const {user} = useAppSelector(state=>state.userReducer)
     const [open, setOpen] = useState(false);
     const [clickedItem, setClickedItem] = useState<IProduct>()
 
@@ -49,6 +50,10 @@ const ProductCards:FC<ProductCardsProps> = ({categoryId}) =>{
                     <div>{clickedItem && clickedItem.name} успешно добавлен в корзину</div>
                 </Alert>
             </Snackbar>
+            {
+                user?.roles?.find(role=>role.name === 'manager') &&
+                <ManagerMenuProducts/>
+            }
         </div>
     )
 }
