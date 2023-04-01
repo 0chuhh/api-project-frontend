@@ -1,13 +1,19 @@
 import React, { useState} from "react"
 import api from '../services/api'
+import { useAppDispatch } from "hooks/redux"
+import { loginUser } from "store/reducers/user/ActionAuth"
+import { useNavigate } from "react-router-dom"
 
 const SignUp = () =>{
     const [email, setEmail] = useState('user5@mail.ru')
     const [login, setLogin] = useState('user5')
     const [password, setPassword] = useState('HelloWorld123')
-
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate();
     const signUp = async () =>{
         await api.auth.signUp(email,login, password)
+        dispatch(loginUser(login, password))
+        navigate(-1)
     }
     return(
         <div className="container" style={{display:'flex', justifyContent:'center', padding:'20%'}}>
