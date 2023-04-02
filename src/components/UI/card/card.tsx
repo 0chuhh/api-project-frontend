@@ -1,41 +1,32 @@
-import React, { FC, useState } from "react"
+import React, { FC, useState, PropsWithChildren } from "react"
 
-interface CardProps {
+interface CardProps extends PropsWithChildren {
     image?: string,
     title?: string,
     content?: string,
     price?: number,
+    buttonName?: string,
     onClick?: React.MouseEventHandler<HTMLDivElement> | undefined
 }
 
-const Card: FC<CardProps> = ({ image, title, content, price , onClick}) => {
-    const [isHoverBack, setIsHoverBack] = useState<boolean>(false)
-
-    const mouseEnterBack = () => {
-        setIsHoverBack(true)
-    }
-
-    const mouseLeaveBack = () => {
-        setIsHoverBack(false)
-    }
+const Card: FC<CardProps> = ({ image, title, content, price, onClick, buttonName, children }) => {
     return (
-  
-        <div onMouseEnter={mouseEnterBack} onMouseLeave={mouseLeaveBack} className="card" style={{border: '1px solid #e6e6e6', position:'relative', overflow:'hidden'}}>
-            <div  style={{ backgroundImage: `url(${image})`, }} className="card-image">
-                <div onClick={onClick} className="button"
-                    style={{
-                        position: "absolute",
-                        left: '30%',
-                        bottom: isHoverBack ? 30 : -100
-                    }}>
-                    в корзину
-                </div>
+
+        <div className="card" style={{ border: '1px solid #e6e6e6', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ backgroundImage: `url(${image})`, }} className="card-image">
             </div>
             <div>
                 <h4 className="title">{title}</h4>
                 <div className="content">{content}</div>
-                <div className="price">₽{price}</div>
+                {children}
             </div>
+            {
+                buttonName &&
+                <div onClick={onClick} className="button"
+                >
+                    {buttonName}
+                </div>
+            }
         </div>
     )
 }

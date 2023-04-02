@@ -52,15 +52,15 @@ const CartOrderFrom = () => {
                 </div>
                 <div className="divider"></div>
                 <div className="pay">
-                    <select value={paymentMethod} onChange={(e) => setpaymentMethod(Number(e.target.value))}>
-                        <option selected disabled value="способ оплаты">Способ оплаты</option>
+                    <select defaultValue={"способ оплаты"} value={paymentMethod} onChange={(e) => setpaymentMethod(Number(e.target.value))}>
+                        <option disabled value="способ оплаты">Способ оплаты</option>
                         <option value={1}>Картой</option>
                         <option value={2}>Наличными</option>
                     </select>
                 </div>
                 <div className="delivery">
-                    <select value={deliveryMethod} onChange={(e) => setDeliveryMethod(Number(e.target.value))}>
-                        <option selected disabled value="способ доставки">Способ доставки</option>
+                    <select defaultValue={"способ доставки"} value={deliveryMethod} onChange={(e) => setDeliveryMethod(Number(e.target.value))}>
+                        <option disabled value="способ доставки">Способ доставки</option>
                         <option value={1}>Курьером</option>
                         <option value={2}>Самовывоз</option>
                     </select>

@@ -1,18 +1,20 @@
 import React,{FC} from "react"
 import { Link } from "react-router-dom";
 import { ICategory } from "../../../models/ICategory";
-import { useAppSelector } from "hooks/redux";
+import { useAppDispatch, useAppSelector } from "hooks/redux";
 import ManagerMenuCategories from "components/modules/managerMenuCategories";
-
+import CloseIcon from '@mui/icons-material/Close';
+import { deleteCategory } from "store/reducers/category/ActionCategory";
 
 interface CategoriesProps{
     items: ICategory[]
 }
 const Categories:FC<CategoriesProps> = ({items}) =>{
     const {user} = useAppSelector(state=>state.userReducer)
-    
-
-   
+    const dispatch = useAppDispatch()
+    const removeCategory = (id:number)=>{
+        dispatch(deleteCategory(id))
+    }
     return(
         <div style={{height:'100%', maxWidth:'250px'}}>
             <h3 className="title">
@@ -24,9 +26,15 @@ const Categories:FC<CategoriesProps> = ({items}) =>{
                 </Link>
                 {
                     items.map((item, index)=>
-                        <Link to={`/menu/${item.id}`} key={`category ${index}`} className="category" style={{ textDecoration: 'none', color: '#000' }}>
-                            {item.name}
-                        </Link>
+                        <div key={`category ${index}`} style={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+                            <Link to={`/menu/${item.id}`}  className="category" style={{ textDecoration: 'none', color: '#000' }}>
+                                {item.name}
+                            </Link>
+                           { user?.roles?.find(role=>role.name === 'manager') &&
+                            <CloseIcon onClick={()=>removeCategory(item.id!)} className="remove"/>
+                           }
+
+                        </div>
                     )
                 }
                 {
@@ -37,4 +45,4 @@ const Categories:FC<CategoriesProps> = ({items}) =>{
         </div>
     )
 }
-export default Categories
+export default React.memo(Categories)

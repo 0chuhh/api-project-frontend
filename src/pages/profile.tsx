@@ -1,6 +1,6 @@
 import MyAccordion from 'components/UI/accordion/myAccordion'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
-import React, { useLayoutEffect } from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 import { IsAuthentificted } from 'services/utils/isAuthentificated'
 import { fetchOrders } from 'store/reducers/order/ActionOrder'
@@ -11,8 +11,7 @@ const Profile = () => {
     const { orders } = useAppSelector(state => state.ordersSlice)
     const [expanded, setExpanded] = React.useState<string | false>(false);
 
-    const handleChange =
-        (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    const handleChange = (event: React.SyntheticEvent, isExpanded: boolean, panel: string) => {
             setExpanded(isExpanded ? panel : false);
         };
     useLayoutEffect(() => {
@@ -20,13 +19,19 @@ const Profile = () => {
             dispath(fetchOrders())
         }
     }, [user])
+
+    useEffect(()=>{
+        setExpanded(orders.length > 0 && `panel${orders[0].id}`);
+        console.log('render')
+    },[orders])
+
     if (!IsAuthentificted()) return <Navigate to="/" replace />
     return (
         <div className='container'>
             <h1>{user?.username} - мои заказы</h1>
             {
                 orders.length ? orders.map((order, index) =>
-                    <MyAccordion key={'order'+index} handleChange={handleChange} expanded={expanded} title={`${order.id} - ${order.date_create.split("T")[0]}`}>
+                    <MyAccordion key={'order'+index} handleChange={(e,isExpanded)=>handleChange(e, isExpanded, `panel${order.id}`)} expanded={expanded === `panel${order.id}`} title={`${order.id} - ${order.date_create.split("T")[0]}`}>
                         <table className='cart-table' style={{ marginTop: 0 }}>
                             <thead className='table-head'>
                                 <tr>
@@ -40,7 +45,7 @@ const Profile = () => {
                             <tbody>
                                 {
                                     order?.order_details?.map((item, index) =>
-                                        <tr className='cart-table-row'>
+                                        <tr key={'order tr' + index} className='cart-table-row'>
 
                                             <td className='column'>
                                                 <div className="cart-item-image" style={{ backgroundImage: `url(http://127.0.0.1:8081${item.product.image})` }} />

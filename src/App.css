@@ -1,10 +1,12 @@
-div a{
-  color:black !important;
-  transition:   all 0.3s ease;
+div a {
+  color: black !important;
+  transition: all 0.3s ease;
 }
-div a:hover{
-  color:red !important;
+
+div a:hover {
+  color: red !important;
 }
+
 .prev,
 .next {
   width: 50px;
@@ -34,7 +36,7 @@ div a:hover{
   display: flex;
   width: 100%;
   flex-wrap: wrap;
-  gap:20px;
+  gap: 20px;
   margin: 20px 0 0 30px;
 }
 
@@ -43,8 +45,20 @@ div a:hover{
   padding: 10px;
   width: 100%;
   max-height: 500px;
+  display: flex;
+  flex-direction: column;
   height: 500px;
 }
+
+.card > .button {
+  position: absolute;
+  align-self: center;
+  bottom: -100px;
+}
+.card:hover .button {
+  bottom: 30px;
+}
+
 
 .card-image {
   overflow: hidden;
@@ -71,6 +85,7 @@ div a:hover{
 .button:hover {
   background: red;
 }
+
 
 .cart-pop-up {
   background-color: #fff;
@@ -143,7 +158,8 @@ input {
   transition: all 0.3s ease;
   max-height: 100px;
 }
-textarea{
+
+textarea {
   width: 100%;
   box-sizing: border-box;
   border-radius: 5px;
@@ -153,7 +169,7 @@ textarea{
   resize: none;
 }
 
-select{
+select {
   width: 100%;
   box-sizing: border-box;
   height: 30px;
@@ -162,17 +178,19 @@ select{
 
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   background-color: #000;
   color: #fff;
 }
-.table-container{
+
+.table-container {
   width: 100%;
   overflow: auto;
 }
 
 .cart-table {
-  margin-top:100px;
+  margin-top: 100px;
 
   border-collapse: collapse;
   width: 100%;
@@ -194,12 +212,21 @@ input:focus, textarea:focus {
   border: 1px solid #e6e6e6;
 }
 
-.column{
+.column {
   text-align: center;
 }
 
-.cart-result{
+.cart-result {
   width: 300px;
   padding: 20px;
   border: solid black 1px;
+}
+
+.remove{
+  color:#000;
+  cursor: pointer;
+
+}
+.remove:hover{
+  color: red;
 }

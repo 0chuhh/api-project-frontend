@@ -1,60 +1,40 @@
-import { useEffect, FC, useState } from "react"
-import api from "../../services/api"
-import { IProduct } from "../../models/IProduct"
-import Card from "../UI/card/card"
+import { useEffect, FC, useState, useCallback } from "react"
 import { useAppDispatch, useAppSelector } from "hooks/redux"
 import { fetchProducts } from "store/reducers/product/ActionProduct"
-import { cartSlice } from "store/reducers/cart/CartSlice"
-import { Alert, Snackbar } from "@mui/material"
+
 import ManagerMenuProducts from "./managerMenuProducts"
-interface ProductCardsProps{
-    categoryId?:string | undefined
+import React from "react"
+import ProductCard from "./productCard"
+interface ProductCardsProps {
+    categoryId?: string | undefined
 }
-const ProductCards:FC<ProductCardsProps> = ({categoryId}) =>{
-    const {products} = useAppSelector(state=>state.productReducer)
+const ProductCards: FC<ProductCardsProps> = ({ categoryId }) => {
+    const { products } = useAppSelector(state => state.productReducer)
     const dispatch = useAppDispatch()
-    const {user} = useAppSelector(state=>state.userReducer)
-    const [open, setOpen] = useState(false);
-    const [clickedItem, setClickedItem] = useState<IProduct>()
-
-    const handleClick = () => {
-        setOpen(true);
-    };
-
-    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-        if (reason === 'clickaway') {
-          return;
-        }
-    
-        setOpen(false);
-      };
+    const { user } = useAppSelector(state => state.userReducer)
 
     useEffect(() => {
         dispatch(fetchProducts(categoryId))
     }, [categoryId])
 
-    const addItem = (item:IProduct) => {
-        setClickedItem(item)
-        dispatch(cartSlice.actions.cartAddItem(item))
-        handleClick()
-    }
-    return(
+
+    
+    return (
         <div className="card-list">
             {
-                products.map((item,index)=>
-                    <Card onClick={()=>addItem(item)} key={`product card ${index}`} image={item.image} title={item.name} content={item.description} price={item.price}/>
+                products.map((item, index) =>
+                    <>
+                        <ProductCard canDelete={user?.roles?.find(role => role.name === 'manager')&&true}  item={item} />
+                        
+                    </>
                 )
             }
-            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                    <div>{clickedItem && clickedItem.name} успешно добавлен в корзину</div>
-                </Alert>
-            </Snackbar>
+
             {
-                user?.roles?.find(role=>role.name === 'manager') &&
-                <ManagerMenuProducts/>
+                user?.roles?.find(role => role.name === 'manager') &&
+                <ManagerMenuProducts />
             }
         </div>
     )
 }
-export default ProductCards
+export default React.memo(ProductCards)

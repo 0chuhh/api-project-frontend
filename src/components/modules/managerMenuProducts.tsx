@@ -38,8 +38,8 @@ const ManagerMenuProducts = () => {
             <input value={title} onChange={(e) => setTitle(e.target.value)} type="text" placeholder="название" />
             <select value={category} onChange={(e) => setCategory(Number(e.target.value))}>
                 {
-                    categories.map(category =>
-                        <option value={category.id}>{category.name}</option>
+                    categories.map((category, index) =>
+                        <option key={'cat' + index} value={category.id}>{category.name}</option>
                     )
                 }
             </select>

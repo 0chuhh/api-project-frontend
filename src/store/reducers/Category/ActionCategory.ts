@@ -23,3 +23,14 @@ export const postCategory = (name:string, image?:File) => async (dispatch: AppDi
         dispatch(categorySlice.actions.categoriesFetchingError((error as Error).message))
     }
 }
+
+export const deleteCategory = (id:number) => async (dispatch: AppDispatch) =>{
+    try {
+        dispatch(categorySlice.actions.categoriesFetching())
+        await api.categories.deleteCategory(id)
+        dispatch(categorySlice.actions.deleteCategorySucces(id))
+        
+    } catch (error) {
+        dispatch(categorySlice.actions.categoriesFetchingError((error as Error).message))
+    }
+}

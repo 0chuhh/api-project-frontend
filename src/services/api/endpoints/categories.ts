@@ -11,7 +11,8 @@ const endpoints = {
         headers:{
             'Content-Type': 'multipart/form-data'
         }
-    })
+    }),
+    deleteCategory: (id:number) => axios.delete(`products/categories/${id}/`)
 };
 
 export default endpoints;

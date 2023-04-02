@@ -22,3 +22,14 @@ export const postProducts = (name:string, description:string, category:number, p
         dispatch(productsSlice.actions.productsFetchingError((error as Error).message))
     }
 }
+
+export const deleteProduct = (id:number) => async (dispatch: AppDispatch) =>{
+    try {
+        dispatch(productsSlice.actions.productsFetching())
+        await api.products.deleteProduct(id)
+        dispatch(productsSlice.actions.deleteProductSucces(id))
+        
+    } catch (error) {
+        dispatch(productsSlice.actions.productsFetchingError((error as Error).message))
+    }
+}

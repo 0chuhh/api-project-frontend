@@ -39,7 +39,8 @@ const endpoints = {
             'Content-Type': 'multipart/form-data'
         }
     }
-    )
+    ),
+    deleteProduct: (id:number) => axios.delete(`products/${id}/`)
 };
 
 export default endpoints;

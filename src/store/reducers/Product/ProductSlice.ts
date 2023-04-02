@@ -31,6 +31,10 @@ export const productsSlice = createSlice({
         addProductFetchingSucces(state, action: PayloadAction<IProduct>){
             state.isLoading = false;
             state.products.push(action.payload)
+        },
+        deleteProductSucces(state, action:PayloadAction<number>){
+            state.isLoading = false;
+            state.products = state.products.filter(product => product.id !== action.payload)
         }
     }
 })

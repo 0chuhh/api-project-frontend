@@ -32,6 +32,10 @@ export const categorySlice = createSlice({
         addCategoryFetchingSuccess(state, action: PayloadAction<ICategory>){
             state.isLoading = false;
             state.categories.push(action.payload)
+        },
+        deleteCategorySucces(state, action:PayloadAction<number>){
+            state.isLoading = false;
+            state.categories = state.categories.filter(category => category.id !== action.payload)
         }
     }
 })
